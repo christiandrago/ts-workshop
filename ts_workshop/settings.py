@@ -12,6 +12,15 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 
+# project configuration
+KLARNA_PLAYGROUND = True
+if KLARNA_PLAYGROUND:
+    klarna_base_url = "https://api.playground.klarna.com"
+else:
+    klarna_base_url = "https://api.klarna.com"
+
+my_url = "f17d434b.ngrok.io"
+my_http_address = "https://" + my_url
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -25,7 +34,7 @@ SECRET_KEY = ')n-39g$uigrtsxlp%_-_96iz_nopo2#eawd!d42%k43!y5j$k-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [my_url, 'localhost']
 
 
 # Application definition
@@ -37,7 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'order_management'
+    'order_management',
+    'kcov3'
 ]
 
 MIDDLEWARE = [
@@ -120,3 +130,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
