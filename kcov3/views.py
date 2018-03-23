@@ -29,8 +29,10 @@ headers = {'content-type': content_type_value, "Authorization": "Basic %s"%store
 
 # initialize checkout session
 def render_checkout(request):
+    #read user provided data
     checkout_uri = request.GET.get('checkout_uri', None)
 
+    #create request body
     request_body = {
         "purchase_country": "se",
         "purchase_currency": "sek",
@@ -73,11 +75,11 @@ def render_checkout(request):
             # "country_change": "https://www.estore.com/api/country"
         }
     }
-
     response = requests.post(klarna_base_url + '/checkout/v3/orders', headers=headers, data=json.dumps(request_body)) #trigger the request
 
-    bring_to_frontend = {}
 
+    #Elaborate response
+    bring_to_frontend = {}
 
     if 200 <= response.status_code <= 299: #positive response
         bring_to_frontend['checkout_snippet'] = (response.json())['html_snippet']
